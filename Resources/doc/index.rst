@@ -251,10 +251,9 @@ Here is an example on how to inject the service container into your migrations:
 
         # config/services.yaml
         services:
-            Doctrine\Migrations\Version\DbalMigrationFactory: ~
             App\Migrations\Factory\MigrationFactoryDecorator:
-                decorates: Doctrine\Migrations\Version\DbalMigrationFactory
-                arguments: ['@App\Migrations\Factory\MigrationFactoryDecorator.inner', '@service_container']
+                decorates: 'doctrine.migrations.migrations_factory'
+                arguments: ['@.inner', '@service_container']
 
 
 .. code-block:: php
