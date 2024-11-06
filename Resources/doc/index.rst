@@ -311,6 +311,26 @@ for Doctrine's ORM:
 
 .. configuration-block::
 
+    .. code-block:: php-attributes
+
+        // src/Entity/User.php
+        namespace App\Entity;
+
+        use Doctrine\DBAL\Types\Types;
+        use Doctrine\ORM\Mapping as ORM;
+
+        #[Entity]
+        #[Table(name: 'user')]
+        class User
+        {
+            #[ORM\Id]
+            #[ORM\GeneratedValue(strategy: 'AUTO')]
+            #[ORM\Column(type: Types:INT)]
+            private $id;
+
+            #[ORM\Column(type: Types:STRING, length: 255)]
+            private $name;
+
     .. code-block:: php-annotations
 
         // src/Entity/User.php
