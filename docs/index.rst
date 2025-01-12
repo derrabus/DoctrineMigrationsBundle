@@ -297,6 +297,11 @@ Here is an example on how to inject the service container into your migrations:
     this bundle will automatically inject the default symfony container into your migration class
     (this because the ``MigrationFactoryDecorator`` shown in this example is the default migration factory used by this bundle).
 
+.. caution::
+
+    The interface ``Symfony\Component\DependencyInjection\ContainerAwareInterface`` has been deprecated in Symfony 6.4 and
+    removed in 7.0. If you use this version or newer, there is currently no way to inject the service container into migrations.
+
 
 Generating Migrations Automatically
 -----------------------------------
@@ -310,6 +315,26 @@ For example, suppose you create a new ``User`` entity and add mapping informatio
 for Doctrine's ORM:
 
 .. configuration-block::
+
+    .. code-block:: php-attributes
+
+        // src/Entity/User.php
+        namespace App\Entity;
+
+        use Doctrine\DBAL\Types\Types;
+        use Doctrine\ORM\Mapping as ORM;
+
+        #[Entity]
+        #[Table(name: 'user')]
+        class User
+        {
+            #[ORM\Id]
+            #[ORM\GeneratedValue(strategy: 'AUTO')]
+            #[ORM\Column(type: Types:INT)]
+            private $id;
+
+            #[ORM\Column(type: Types:STRING, length: 255)]
+            private $name;
 
     .. code-block:: php-annotations
 
